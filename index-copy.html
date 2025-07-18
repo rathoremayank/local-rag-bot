@@ -1,0 +1,26 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAG UI</title>
+</head>
+<body>
+  <h2>Ask your RAG</h2>
+  <input id="question" type="text" placeholder="Type your question">
+  <button onclick="ask()">Ask</button>
+  <p id="response"></p>
+
+  <script>
+    async function ask() {
+      const question = document.getElementById("question").value;
+      const res = await fetch("http://localhost:8000/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question })
+      });
+      const data = await res.json();
+      document.getElementById("response").innerText = data.answer;
+    }
+  </script>
+</body>
+</html>
